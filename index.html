@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="preload" href="./assets/fonts/Rubik-Bold-kern-latin.woff" as="font" type="font/woff" crossorigin>
+  <link rel="preload" href="./assets/fonts/Rubik-Bold-kern-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./assets/fonts/Rubik-Regular-kern-latin.woff" as="font" type="font/woff" crossorigin>
+  <link rel="preload" href="./assets/fonts/Rubik-Regular-kern-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <style>
+    @font-face {
+      font-family: Rubik;
+      src: url("./assets/fonts/Rubik-Bold-kern-latin.woff2") format("woff2"),
+        url("./assets/fonts/Rubik-Bold-kern-latin.woff") format("woff");
+      font-weight: 700;
+      font-display: swap;
+    }
+    @font-face {
+        font-family: Rubik;
+        src: url("./assets/fonts/Rubik-Regular-kern-latin.woff2") format("woff2"),
+          url("./assets/fonts/Rubik-Regular-kern-latin.woff") format("woff");
+        font-weight: 400;
+        font-display: swap;
+    }
+  </style>
+</head>
+<body style="display: flex; align-items: center; justify-content: center; background-color: black;">
+  <h1 style="margin-top: 182px; max-width: 800px; color: #FFF; font-size: 3.125rem; line-height: 1; font-family: 'Rubik', sans-serif; font-weight: 700;">
+    Design Animation Guides Жж
+  </h1>
+  <script>
+    function loadFonts() {
+      if( "fonts" in document ) {
+        var regular = new FontFace("Rubik", "url('./assets/fonts/Rubik-Regular-hint-all.woff2') format('woff2'), url('./assets/fonts/Rubik-Regular-hint-all.woff') format('woff')");
+        var bold = new FontFace("Rubik", "url('./assets/fonts/Rubik-Bold-hint-all.woff2') format('woff2'), url('./assets/fonts/Rubik-Bold-hint-all.woff') format('woff')", { weight: "700" });
+  
+        Promise.all([ bold.load(), regular.load() ]).then(function(fonts) {
+            fonts.forEach(function(font) {
+                document.fonts.add(font);
+            });
+        });
+      }
+  
+      if(!("fonts" in document) && "head" in document) {
+        // Awkwardly dump the second stage @font-face blocks in the head
+        var style = document.createElement("style");
+        // Note: Edge supports WOFF2
+        style.innerHTML = "@font-face { font-family: Rubik; src: url('./assets/fonts/Rubik-Regular-hint-all.woff2') format('woff2'), url('./assets/fonts/Rubik-Regular-hint-all.woff') format('woff'); } @font-face { font-family: Rubik; font-weight: 700; src: url('./assets/fonts/Rubik-Bold-hint-all.woff2') format('woff2'), url('./assets/fonts/Rubik-Bold-hint-all.woff') format('woff'); }";
+        document.head.appendChild(style);
+      }
+    }
+
+    setTimeout(() => {
+      loadFonts()
+    }, 5000)
+  </script>
+</body>
+</html>
